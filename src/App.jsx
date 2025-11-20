@@ -1,71 +1,58 @@
+import { useEffect } from 'react'
+import Hero from './components/Hero'
+import Bento from './components/Bento'
+import DiagonalSections from './components/DiagonalSections'
+
 function App() {
+  useEffect(() => {
+    // setup smooth scrolling wrapper required by ScrollSmoother
+    const wrapper = document.getElementById('smooth-wrapper')
+    const content = document.getElementById('smooth-content')
+    if (!wrapper) {
+      const w = document.createElement('div')
+      w.id = 'smooth-wrapper'
+      w.style.position = 'relative'
+      w.style.overflow = 'hidden'
+
+      const c = document.createElement('div')
+      c.id = 'smooth-content'
+      while (document.body.firstChild) {
+        c.appendChild(document.body.firstChild)
+      }
+      w.appendChild(c)
+      document.body.appendChild(w)
+    } else if (!content) {
+      const c2 = document.createElement('div')
+      c2.id = 'smooth-content'
+      while (wrapper.firstChild) {
+        c2.appendChild(wrapper.firstChild)
+      }
+      wrapper.appendChild(c2)
+    }
+  }, [])
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_50%)]"></div>
+    <div className="bg-black text-white min-h-screen relative">
+      {/* grain overlay */}
+      <div className="pointer-events-none fixed inset-0 opacity-[0.06] mix-blend-soft-light" style={{ backgroundImage: 'url(https://grainy-gradients.vercel.app/noise.svg)' }} />
 
-      <div className="relative min-h-screen flex items-center justify-center p-8">
-        <div className="max-w-2xl w-full">
-          {/* Header with Flames icon */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center mb-6">
-              <img
-                src="/flame-icon.svg"
-                alt="Flames"
-                className="w-24 h-24 drop-shadow-[0_0_25px_rgba(59,130,246,0.5)]"
-              />
-            </div>
-
-            <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
-              Flames Blue
-            </h1>
-
-            <p className="text-xl text-blue-200 mb-6">
-              Build applications through conversation
-            </p>
-          </div>
-
-          {/* Instructions */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8 shadow-xl mb-6">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                1
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Describe your idea</h3>
-                <p className="text-blue-200/80 text-sm">Use the chat panel on the left to tell the AI what you want to build</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                2
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Watch it build</h3>
-                <p className="text-blue-200/80 text-sm">Your app will appear in this preview as the AI generates the code</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                3
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Refine and iterate</h3>
-                <p className="text-blue-200/80 text-sm">Continue the conversation to add features and make changes</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="text-center">
-            <p className="text-sm text-blue-300/60">
-              No coding required • Just describe what you want
-            </p>
-          </div>
-        </div>
+      {/* floating menu */}
+      <div className="fixed right-4 top-6 z-40 flex items-center gap-2">
+        <button className="magnet text-[11px] uppercase tracking-widest bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 px-3 py-2 hover:bg-[#00ff88]/30 transition will-change-transform">Pulse</button>
+        <button className="magnet text-[11px] uppercase tracking-widest bg-[#ff0080]/20 text-[#ff0080] border border-[#ff0080]/40 px-3 py-2 hover:bg-[#ff0080]/30 transition will-change-transform">Shift</button>
+        <button className="magnet text-[11px] uppercase tracking-widest bg-[#00d9ff]/20 text-[#00d9ff] border border-[#00d9ff]/40 px-3 py-2 hover:bg-[#00d9ff]/30 transition will-change-transform">Warp</button>
       </div>
+
+      <Hero />
+      <Bento />
+      <DiagonalSections />
+
+      <footer className="relative bg-black text-white py-16">
+        <div className="mx-6 md:mx-16 flex flex-wrap items-end gap-6">
+          <h5 className="text-[12px] uppercase tracking-widest opacity-70">Digital Brutalism meets Cyberpunk</h5>
+          <div className="text-[10px] opacity-60">Made for experiments • Mixed sizes • Broken grid • Heavy blur</div>
+        </div>
+      </footer>
     </div>
   )
 }
